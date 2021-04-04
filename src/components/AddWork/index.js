@@ -1,20 +1,24 @@
 import React, { useState } from 'react';
 
-const AddWork = () => {
-	const [state, setstate] = useState(
-		{
-			name: '',
-			status: '0',
-		}
-	)
+const AddWork = (props) => {
+	const initialFormState = { id: null, name: '', status: false }
+	const [input, setInput] = useState(initialFormState)
 
 	const handleChange = (e) => {
-		setstate({ ...state, [e.target.name]: e.target.value.trim() })
+		setInput(
+			{
+				...input,
+				[e.target.name]: e.target.value.trim()
+			}
+		)
 	}
-
 	const handleSubmit = (e) => {
-		console.log(state)
 		e.preventDefault();
+		props.onSubmit({
+			id: Math.floor(Math.random() * 1000),
+			name: input.name,
+			status: input.status,
+		});
 	}
 
 	return (
@@ -22,11 +26,11 @@ const AddWork = () => {
 			<h2>HTML Forms</h2>
 			<form onSubmit={handleSubmit} action="/">
 				<label>Tên</label><br />
-				<input type="text" name="name" value={state.name} onChange={handleChange} /><br />
+				<input type="text" name="name" value={input.name} onChange={handleChange} /><br />
 				<label>Trạng thái</label><br />
-				<select name="status" value={state.status} onChange={handleChange}>
-					<option value="0">Ẩn</option>
-					<option value="1">Kích hoạt</option>
+				<select name="status" value={input.status} onChange={handleChange}>
+					<option value={false}>Ẩn</option>
+					<option value={true}>Kích hoạt</option>
 				</select>
 				<input type="submit" value="Lưu lại" />
 			</form>
