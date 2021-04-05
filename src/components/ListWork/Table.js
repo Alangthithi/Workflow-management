@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Table = (props) => {
-  const data = JSON.parse(localStorage.getItem('listWork'))
+  const data = JSON.parse(localStorage.getItem('listWork')) || [];
   return data.map((todo, index) => {
     return (
       <tbody>
