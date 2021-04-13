@@ -2,9 +2,9 @@ import React from 'react';
 import Table from './Table';
 
 const ListWork = (props) => {
-    const { setstate, state } = props;
+    const { setState, state, removeItem } = props;
     const onChange = (e) => {
-        setstate(!state)
+        setState(!state)
     }
 
     return (
@@ -19,7 +19,9 @@ const ListWork = (props) => {
                         <th>Hành dộng</th>
                     </tr>
                 </thead>
-                <Table />
+                <tbody>
+                    <Table setstate={setState} removeItem={removeItem} />
+                </tbody>
             </table>
         </div>
     )

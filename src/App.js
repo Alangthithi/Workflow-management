@@ -3,9 +3,10 @@ import './App.css';
 import React, { useState } from 'react';
 import ListWork from './components/ListWork';
 import AddWork from './components/AddWork';
+import EditWork from './components/EditWork';
 
 function App() {
-  const [state, setstate] = useState(false);
+  const [state, setState] = useState(false);
   const initialFormState = JSON.parse(localStorage.getItem('listWork')) || [];
   const [todos, setTodos] = useState(initialFormState);
 
@@ -15,6 +16,12 @@ function App() {
     localStorage.setItem('listWork', JSON.stringify(newTodos));
   }
 
+  const removeItem = (id) => {
+    const removeArr = [...todos].filter(e => e.id !== id);
+    setTodos(removeArr);
+    localStorage.setItem('listWork', JSON.stringify(removeArr));
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -22,8 +29,11 @@ function App() {
           Quản lý công việc
         </div>
         {state ? <AddWork onSubmit={addTodo} /> : null}
-        <ListWork setstate={setstate} state={state} />
+        <EditWork />
+
+        <ListWork removeItem={removeItem} setState={setState} state={state} />
         <hr />
+
       </header>
     </div>
   );
